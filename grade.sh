@@ -8,6 +8,7 @@ if [[ -f student-submission/ListExamples.java ]]
 then 
     echo 'found correct file'
 else 
+    # Added echo command when file isn't foun
     echo 'file not found'
     exit
 fi
