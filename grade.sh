@@ -8,6 +8,7 @@ if [[ -f student-submission/ListExamples.java ]]
 then 
     echo 'found correct file'
 else 
+    echo 'file not found'
     exit
 fi
 
@@ -17,7 +18,14 @@ cp -r lib student-submission
 
 cd student-submission
 
-javac -cp .:lib/hamcrest-core-1.3.jar:lib/junit-4.13.2.jar *.java
+# Implemented OS check
+if [[ "$OSTYPE" == "mysys" ]]
+then
+    javac -cp ";lib/hamcrest-core-1.3.jar;lib/junit-4.13.2.jar" *.java
+else
+    javac -cp .:lib/hamcrest-core-1.3.jar:lib/junit-4.13.2.jar *.java
+fi
+
 
 if [[ $? == 0 ]]
 then
@@ -27,4 +35,10 @@ else
     exit
 fi
 
-java -cp .:lib/hamcrest-core-1.3.jar:lib/junit-4.13.2.jar org.junit.runner.JUnitCore TestListExamples
+# Implemented OS check
+if [[ "$OSTYPE" == "msys" ]]
+then
+    java -cp ";lib/hamcrest-core-1.3.jar;lib/junit-4.13.2.jar" org.junit.runner.JUnitCore TestListExamples
+else
+    java -cp .:lib/hamcrest-core-1.3.jar:lib/junit-4.13.2.jar org.junit.runner.JUnitCore TestListExamples
+fi
